@@ -1,16 +1,22 @@
 {
-  "name": "batch-processing",
+  "name": "batch-request",
   "version": "0.1.0",
-  "description": "Batch process promise based requests to overcome network limitations",
+  "description": "Batch promise based requests to overcome network limitations",
   "main": "index.js",
-  "repository": "https://github.com/kunal-mandalia/batch-processing.git",
+  "repository": "https://github.com/kunal-mandalia/batch-request.git",
   "author": "Kunal Mandalia <kunal.v.mandalia@gmail.com> (http://kunalmandalia.com/)",
   "license": "MIT",
   "devDependencies": {
-    "jest": "23.4.2"
+    "express": "4.16.3",
+    "jest": "23.4.2",
+    "node-fetch": "2.2.0"
   },
   "scripts": {
     "test": "jest",
-    "test-watch": "jest --watch"
+    "test-watch": "jest --watch",
+    "e2e": "yarn test ./e2e"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
