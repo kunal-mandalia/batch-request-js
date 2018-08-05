@@ -1,6 +1,9 @@
 # batch-request-js [![CircleCI](https://circleci.com/gh/kunal-mandalia/batch-request-js.svg?style=svg)](https://circleci.com/gh/kunal-mandalia/batch-request-js)
 Batch promise based requests to overcome network limitations or API restrictions
 
+## Install
+- `yarn add batch-request-js`
+
 ## Tests
 
 - `yarn test-test` to run unit tests
@@ -14,7 +17,7 @@ Suppose we'd like to fetch thousands of customers from an API. To avoid network 
 
 ```(javascript)
 // node.js
-const batchRequest = require('batch-request')
+const batchRequest = require('batch-request-js')
 
 
 async function getCustomers () {
