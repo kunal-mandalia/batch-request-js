@@ -43,7 +43,6 @@ describe('batch-request', () => {
 
 describe('Non batch request', () => {
     it('should fail on large payloads', async () => {
-        expect.assertions(1)
         jest.setTimeout(TIMEOUT)
         try {
             const requests = Array(BATCH_SIZE).fill(0).map(() => fetch(ENDPOINT))
