@@ -1,5 +1,5 @@
 {
-  "name": "batch-request",
+  "name": "batch-request-js",
   "version": "0.1.0",
   "description": "Batch promise based requests to overcome network limitations",
   "main": "index.js",
