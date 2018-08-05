@@ -13,11 +13,13 @@ const batchRequest = (data, request = () => {}, options = { batchSize: 100, dela
     let batchSucceeded = []
     let batchFailed = []
     let batchNumberFailed = []
+    let response = []
 
     for (let i = 0; i < data.length; i += options.batchSize) {
       const batch = data.slice(i, i + options.batchSize)
       try {
-        await Promise.all(batch.map(request))
+        const result = await Promise.all(batch.map(request))
+        response = response.concat(result)
         batchSucceeded = batchSucceeded.concat(batch)
         await delay(options.delay)
       } catch (error) {
@@ -25,7 +27,12 @@ const batchRequest = (data, request = () => {}, options = { batchSize: 100, dela
         batchNumberFailed.push(i)
       }
     }
-    resolve({ batchFailed, batchSucceeded, batchNumberFailed })
+    resolve({
+      batchFailed,
+      batchNumberFailed,
+      batchSucceeded,
+      response
+    })
   })
 }
 
