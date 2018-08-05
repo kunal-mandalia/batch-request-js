@@ -6,7 +6,11 @@ class Server {
     this.server = express()
     this.server.get('/query', async (req, res) => {
       await this.simulateNetwork()
-      res.status(200).send()
+      res.status(200).json({
+        data: {
+          timestamp: Date.now()
+        }
+      })
     })
   }
 
