@@ -14,7 +14,9 @@
   "scripts": {
     "test": "jest",
     "test-watch": "jest --watch",
-    "e2e": "yarn test ./e2e"
+    "test-unit": "yarn test ./__tests__",
+    "test-e2e": "yarn test ./e2e",
+    "test-ci": "yarn test-unit && yarn test-e2e"
   },
   "jest": {
     "testEnvironment": "node"
