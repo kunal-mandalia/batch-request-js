@@ -1,6 +1,10 @@
 # batch-request
 Batch promise based requests to overcome network limitations or API restrictions
 
+## Tests
+
+- `yarn e2e` to run e2e tests
+- `yarn test` to run unit tests
 
 ## Usage
 
