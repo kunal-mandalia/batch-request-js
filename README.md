@@ -1,4 +1,4 @@
-# batch-request
+# batch-request-js
 Batch promise based requests to overcome network limitations or API restrictions
 
 ## Tests
@@ -23,10 +23,10 @@ async function getCustomers () {
 
   // fetch customers in batches of 100, delaying 200ms inbetween each batch request
   const result = await batchRequest(customerIds, request, { batchSize: 100, delay: 200 })
-  const  { batchSucceeded, batchFailed, batchNumberFailed } = result
+  const  { batchFailed, batchNumberFailed, batchSucceeded, response } = result
 
   // Data from successful batches
-  console.log(batchSucceeded[0]) // { customerId: '100', ... }
+  console.log(response[0]) // { customerId: '100', ... }
 
   // Failed batch numbers
   console.log(batchNumberFailed) // [7, 9] 
