@@ -1,9 +1,9 @@
 describe('batch-request', () => {
-  it('should batch requests', () => {
+  describe('successful requests', () => {
 
   })
 
-  it('should delay the next batch of requests', () => {
+  describe('failing requests', () => {
     
   })
 })
