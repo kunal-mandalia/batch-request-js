@@ -38,15 +38,18 @@ async function getCustomers () {
 }
 ```
 
-## Example
+## Example
 
 ```js
 // node.js
 const batchRequest = require('batch-request-js')
 
 async function getData () {
+  // setup a 100 test records
   const data = Array(100).fill(0).map((d, i) => ({ item: i }))
+  // all requests will succeed and be timestamped
   const request = dataItem => Promise.resolve({ ...dataItem, timestamp: Date.now() })
+  // batch requests 20 at a time, delaying half a second after each batch request
   const result = await batchRequest(data, request, { batchSize: 20, delay: 500 })
   console.log(result)
 //   { batchFailed: [],
