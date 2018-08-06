@@ -3,7 +3,7 @@ const server = require('./server')
 const { batchRequest, batch } = require('../batch-request')
 
 const TIMEOUT = 1000 * 30
-const BATCH_SIZE = 1000
+const DATA_INPUT_LENGTH = 1000 // i.e. a thousand records to query
 const ENDPOINT = "http://localhost:5000/query"
 
 beforeEach(async () => {
@@ -28,13 +28,13 @@ describe('batch-request', () => {
         // assign
         jest.setTimeout(TIMEOUT)
         try {
-            const data = Array(BATCH_SIZE).fill(0).map((items, i) => i)
+            const data = Array(DATA_INPUT_LENGTH).fill(0).map((items, i) => i)
             const request = () => fetch(ENDPOINT)
             // act
             const result = await batchRequest(data, request)
             // assert
             expect(result.batchFailed).toHaveLength(0)
-            expect(result.batchSucceeded).toHaveLength(BATCH_SIZE)
+            expect(result.batchSucceeded).toHaveLength(DATA_INPUT_LENGTH)
         } catch (error) {
             expect(error).toBeFalsy()
         }
@@ -45,7 +45,7 @@ describe('Non batch request', () => {
     it('should fail on large payloads', async () => {
         jest.setTimeout(TIMEOUT)
         try {
-            const requests = Array(BATCH_SIZE).fill(0).map(() => fetch(ENDPOINT))
+            const requests = Array(DATA_INPUT_LENGTH).fill(0).map(() => fetch(ENDPOINT))
             const result = await Promise.all(requests)
             expect(result).toBeFalsy()
         } catch (error) {
