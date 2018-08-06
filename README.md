@@ -15,7 +15,7 @@ Batch promise based requests to overcome network limitations or API restrictions
 Suppose we'd like to fetch thousands of customers from an API. To avoid network limitations or rate limiting issues, we can batch the requests:
 
 
-```(javascript)
+```js
 // node.js
 const batchRequest = require('batch-request-js')
 
@@ -36,6 +36,37 @@ async function getCustomers () {
   // Failed batch numbers
   console.log(batchNumberFailed) // [7, 9] 
 }
+```
+
+## Example
+
+```js
+// node.js
+const batchRequest = require('batch-request-js')
+
+async function getData () {
+  const data = Array(100).fill(0).map((d, i) => ({ item: i }))
+  const request = dataItem => Promise.resolve({ ...dataItem, timestamp: Date.now() })
+  const result = await batchRequest(data, request, { batchSize: 20, delay: 500 })
+  console.log(result)
+//   { batchFailed: [],
+//     batchNumberFailed: [],
+//     batchSucceeded: [
+//        { item: 0 },
+//        { item: 1 },
+//        { item: 2 },
+//        ...
+//      ],
+//      response: [
+//         { item: 0, timestamp: 1533552890663 },
+//         { item: 1, timestamp: 1533552890663 },
+//         { item: 2, timestamp: 1533552890663 },
+//         { item: 3, timestamp: 1533552890663 },
+//         ...
+//      ]
+}
+
+getData()
 ```
 
 ## Handling failed batch requests
