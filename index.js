@@ -1,3 +1,3 @@
-const batchRequest = require('./batch-request')
+const { batchRequest } = require('./batch-request')
 
 module.exports = batchRequest
