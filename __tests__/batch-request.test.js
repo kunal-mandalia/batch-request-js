@@ -10,13 +10,8 @@ describe('batch-request', () => {
       const result = await batchRequest(data, request)
       // assert
       expect(result).toMatchObject({
-        batchFailed: [],
-        batchNumberFailed: [],
-        batchSucceeded: [
-          "customer_id_100",
-          "customer_id_101"
-        ],
-        response: [
+        error: [],
+        data: [
           { customerId: "customer_id_100" },
           { customerId: "customer_id_101" }
         ]
@@ -27,19 +22,30 @@ describe('batch-request', () => {
   describe('failing requests', () => {
     it('should return failed requests', async () => {
       // assign
-      const data = ["customer_id_100", "customer_id_101"]
-      const request = customerId => Promise.reject({ customerId })
+      const data = ["customer_id_100", "customer_id_101", "customer_id_102"]
+      const request = customerId => customerId === "customer_id_100"
+        ? Promise.resolve({ customer: { id: customerId } })
+        : Promise.reject("Customer not found")
       // act
       const result = await batchRequest(data, request)
+
       // assert
       expect(result).toMatchObject({
-        batchFailed: [
-          "customer_id_100",
-          "customer_id_101"
+        error: [
+          {
+            record: "customer_id_101",
+            error: new Error("Customer not found")
+          },
+          {
+            record: "customer_id_102",
+            error: new Error("Customer not found")
+          },
         ],
-        batchNumberFailed: [0],
-        batchSucceeded: [],
-        response: []
+        data: [
+          {
+            customer: { id: "customer_id_100" }
+          }
+        ]
       })
     })
   })
