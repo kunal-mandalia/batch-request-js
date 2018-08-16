@@ -45,27 +45,21 @@ const batchRequest = require('batch-request-js')
 
 async function getData () {
   // setup a 100 test records
-  const data = Array(100).fill(0).map((d, i) => ({ item: i }))
+  const records = Array(100).fill(0).map((d, i) => ({ item: i }))
   // all requests will succeed and be timestamped
-  const request = dataItem => Promise.resolve({ ...dataItem, timestamp: Date.now() })
+  const request = record => Promise.resolve({ ...record, timestamp: Date.now() })
   // batch requests 20 at a time, delaying half a second after each batch request
-  const result = await batchRequest(data, request, { batchSize: 20, delay: 500 })
+  const result = await batchRequest(records, request, { batchSize: 20, delay: 500 })
   console.log(result)
-//   { batchFailed: [],
-//     batchNumberFailed: [],
-//     batchSucceeded: [
-//        { item: 0 },
-//        { item: 1 },
-//        { item: 2 },
-//        ...
-//      ],
-//      response: [
-//         { item: 0, timestamp: 1533552890663 },
-//         { item: 1, timestamp: 1533552890663 },
-//         { item: 2, timestamp: 1533552890663 },
-//         { item: 3, timestamp: 1533552890663 },
+//   { 
+//     error: [],
+//     data: [
+//        { item: 0, timestamp: 1533552890663 },
+//        { item: 1, timestamp: 1533552890663 },
+//        { item: 2, timestamp: 1533552890663 },
+//        { item: 3, timestamp: 1533552890663 },
 //         ...
-//      ]
+//     ]
 }
 
 getData()
