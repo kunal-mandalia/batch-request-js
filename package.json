@@ -1,9 +1,9 @@
 {
   "name": "batch-request-js",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "description": "Batch promise based requests to overcome network limitations",
   "main": "index.js",
-  "repository": "https://github.com/kunal-mandalia/batch-request.git",
+  "repository": "https://github.com/kunal-mandalia/batch-request-js.git",
   "author": "Kunal Mandalia <kunal.v.mandalia@gmail.com> (http://kunalmandalia.com/)",
   "license": "MIT",
   "devDependencies": {
