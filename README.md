@@ -27,14 +27,13 @@ async function getCustomers () {
   const request = (customerId) => fetch(`${API_ENDPOINT}/${customerId}`).then(response => response.json())
 
   // fetch customers in batches of 100, delaying 200ms inbetween each batch request
-  const result = await batchRequest(customerIds, request, { batchSize: 100, delay: 200 })
-  const  { batchFailed, batchNumberFailed, batchSucceeded, response } = result
+  const { error, data } = await batchRequest(customerIds, request, { batchSize: 100, delay: 200 })
 
-  // Data from successful batches
-  console.log(response[0]) // { customerId: '100', ... }
+  // Data from successful requests
+  console.log(data[0]) // { customerId: '100', ... }
 
-  // Failed batch numbers
-  console.log(batchNumberFailed) // [7, 9] 
+  // Failed requests
+  console.log(error[0]) // { record: "101", error: [Error: Customer not found] }
 }
 ```
 
@@ -46,27 +45,21 @@ const batchRequest = require('batch-request-js')
 
 async function getData () {
   // setup a 100 test records
-  const data = Array(100).fill(0).map((d, i) => ({ item: i }))
+  const records = Array(100).fill(0).map((d, i) => ({ item: i }))
   // all requests will succeed and be timestamped
-  const request = dataItem => Promise.resolve({ ...dataItem, timestamp: Date.now() })
+  const request = record => Promise.resolve({ ...record, timestamp: Date.now() })
   // batch requests 20 at a time, delaying half a second after each batch request
-  const result = await batchRequest(data, request, { batchSize: 20, delay: 500 })
+  const result = await batchRequest(records, request, { batchSize: 20, delay: 500 })
   console.log(result)
-//   { batchFailed: [],
-//     batchNumberFailed: [],
-//     batchSucceeded: [
-//        { item: 0 },
-//        { item: 1 },
-//        { item: 2 },
-//        ...
-//      ],
-//      response: [
-//         { item: 0, timestamp: 1533552890663 },
-//         { item: 1, timestamp: 1533552890663 },
-//         { item: 2, timestamp: 1533552890663 },
-//         { item: 3, timestamp: 1533552890663 },
+//   { 
+//     error: [],
+//     data: [
+//        { item: 0, timestamp: 1533552890663 },
+//        { item: 1, timestamp: 1533552890663 },
+//        { item: 2, timestamp: 1533552890663 },
+//        { item: 3, timestamp: 1533552890663 },
 //         ...
-//      ]
+//     ]
 }
 
 getData()
@@ -74,14 +67,10 @@ getData()
 
 ## Handling failed batch requests
 
-`batchNumberFailed` indicates the batches which failed. Failure here means that at least one of the requests within the batch failed.
-
-- If your call is idempotent e.g. a GET request which has no side effects: filter the `data` set to the failing batch ranges and rerun the batch-request.
-
-- If your call is not idempotent e.g. a POST request to create a customer by id: find those customers within the failing batches not created within the db and rerun the batch-request.
+Rerun batch request with a filtered set of `inputRecords` to just those that failed on the previous attempt.
 
 ## Future
-Retry logic may be implemented to handle automatically rerunning batch-request for failing batches
+Retry logic may be implemented to handle automatically rerunning batch-request for failing requests.
 
 ## License
 MIT

@@ -33,8 +33,8 @@ describe('batch-request', () => {
             // act
             const result = await batchRequest(data, request)
             // assert
-            expect(result.batchFailed).toHaveLength(0)
-            expect(result.batchSucceeded).toHaveLength(DATA_INPUT_LENGTH)
+            expect(result.error).toHaveLength(0)
+            expect(result.data).toHaveLength(DATA_INPUT_LENGTH)
         } catch (error) {
             expect(error).toBeFalsy()
         }
