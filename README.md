@@ -30,10 +30,10 @@ async function getCustomers () {
   const { error, data } = await batchRequest(customerIds, request, { batchSize: 100, delay: 200 })
 
   // Data from successful requests
-  console.log(data[0]) // { customerId: '100', ... }
+  console.log(data) // [{ customerId: '100', ... }, ...]
 
   // Failed requests
-  console.log(error[0]) // { record: "101", error: [Error: Customer not found] }
+  console.log(error) // [{ record: "101", error: [Error: Customer not found] }, ...]
 }
 ```
 
@@ -54,10 +54,10 @@ async function getData () {
 //   { 
 //     error: [],
 //     data: [
-//        { item: 0, timestamp: 1533552890663 },
-//        { item: 1, timestamp: 1533552890663 },
-//        { item: 2, timestamp: 1533552890663 },
-//        { item: 3, timestamp: 1533552890663 },
+//        { record: 0, timestamp: 1533552890663 },
+//        { record: 1, timestamp: 1533552890663 },
+//        { record: 2, timestamp: 1533552890663 },
+//        { record: 3, timestamp: 1533552890663 },
 //         ...
 //     ]
 }
