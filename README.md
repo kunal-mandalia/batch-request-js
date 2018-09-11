@@ -1,4 +1,4 @@
-# batch-request-js [![CircleCI](https://circleci.com/gh/kunal-mandalia/batch-request-js.svg?style=svg)](https://circleci.com/gh/kunal-mandalia/batch-request-js)
+# batch-request-js [![CircleCI](https://circleci.com/gh/kunal-mandalia/batch-request-js.svg?style=svg)](https://circleci.com/gh/kunal-mandalia/batch-request-js) [![Coverage Status](https://coveralls.io/repos/github/kunal-mandalia/batch-request-js/badge.svg?branch=master)](https://coveralls.io/github/kunal-mandalia/batch-request-js?branch=master)
 Batch promise based requests to overcome network limitations or API restrictions
 
 ## Install
