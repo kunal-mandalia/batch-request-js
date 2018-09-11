@@ -7,6 +7,7 @@
   "author": "Kunal Mandalia <kunal.v.mandalia@gmail.com> (http://kunalmandalia.com/)",
   "license": "MIT",
   "devDependencies": {
+    "coveralls": "^3.0.2",
     "express": "4.16.3",
     "jest": "23.4.2",
     "node-fetch": "2.2.0"
@@ -16,7 +17,8 @@
     "test-watch": "jest --watch",
     "test-unit": "yarn test ./__tests__",
     "test-e2e": "yarn test ./e2e",
-    "test-ci": "yarn test-unit && yarn test-e2e"
+    "test-ci": "yarn test-unit && yarn test-e2e && yarn cover",
+    "cover": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "jest": {
     "testEnvironment": "node"
