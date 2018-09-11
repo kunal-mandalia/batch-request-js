@@ -1,6 +1,6 @@
 {
   "name": "batch-request-js",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Batch promise based requests to overcome network limitations",
   "main": "index.js",
   "repository": "https://github.com/kunal-mandalia/batch-request-js.git",

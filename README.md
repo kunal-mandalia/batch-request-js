@@ -6,7 +6,7 @@ Batch promise based requests to overcome network limitations or API restrictions
 
 ## Tests
 
-- `yarn test-test` to run unit tests
+- `yarn test-unit` to run unit tests
 - `yarn test-e2e` to run e2e tests
 - `yarn test-ci` to run both unit and e2e tests
 
